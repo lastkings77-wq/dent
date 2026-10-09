@@ -1,0 +1,14 @@
+{
+  "name": "Стомато — личная стоматологическая CRM",
+  "short_name": "Стомато",
+  "description": "Локальная картотека, записи и финансы стоматолога",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f3f7f7",
+  "theme_color": "#0f766e",
+  "icons": [
+    {"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}
+  ]
+}

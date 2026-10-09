@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0f766e">
+  <meta name="description" content="Личная стоматологическая картотека, расписание и учёт финансов.">
+  <title>Стомато — личная стоматологическая CRM</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <noscript>Для работы приложения необходимо включить JavaScript.</noscript>
+  <main id="app">
+    <section id="lock-screen" class="lock-wrap">
+      <div class="brand-mark">✚</div>
+      <h1>Стомато</h1>
+      <p class="muted">Личная стоматологическая CRM</p>
+      <form id="unlock-form" class="panel narrow">
+        <label for="passphrase">Пароль шифрования</label>
+        <input id="passphrase" type="password" minlength="10" autocomplete="current-password" required placeholder="Не менее 10 символов">
+        <p id="lock-hint" class="small muted">При первом запуске придумайте пароль. Данные будут зашифрованы на этом устройстве. Потерянный пароль восстановить нельзя.</p>
+        <button class="primary" type="submit" id="unlock-button">Создать защищённое хранилище</button>
+        <p id="lock-error" class="error" role="alert"></p>
+      </form>
+    </section>
+    <section id="main-screen" hidden>
+      <header class="topbar">
+        <div><div class="brand"><span class="brand-mark small-mark">✚</span> Стомато</div><div class="muted small">Локально на этом устройстве</div></div>
+        <button id="lock-now" class="secondary compact" type="button">Заблокировать</button>
+      </header>
+      <nav class="tabs" aria-label="Разделы">
+        <button class="tab active" data-view="dashboard">Обзор</button>
+        <button class="tab" data-view="patients">Пациенты</button>
+        <button class="tab" data-view="calendar">Записи</button>
+        <button class="tab" data-view="finance">Финансы</button>
+        <button class="tab" data-view="settings">Клиники и данные</button>
+      </nav>
+      <div id="notice" class="notice" role="status" hidden></div>
+      <section id="view-dashboard" class="view"></section>
+      <section id="view-patients" class="view" hidden></section>
+      <section id="view-calendar" class="view" hidden></section>
+      <section id="view-finance" class="view" hidden></section>
+      <section id="view-settings" class="view" hidden></section>
+      <footer>Стомато · Локальная версия · Не заменяет клиническую документацию вашей организации</footer>
+    </section>
+  </main>
+  <dialog id="modal"><form method="dialog" id="modal-form"><div id="modal-content"></div><div class="modal-actions"><button class="secondary" value="cancel">Отмена</button><button class="primary" id="modal-save" value="save">Сохранить</button></div></form></dialog>
+  <script src="./app.js" defer></script>
+</body>
+</html>
