@@ -39,9 +39,21 @@
     if(pass.length<10){err.textContent="Пароль должен содержать не менее 10 символов.";return;}
     $("#unlock-button").disabled=true;
     try {
-      const vault=await getVault();
-      if(vault){ cryptoKey=await deriveKey(pass,new Uint8Array(vault.salt)); state=await decryptState(vault.payload); }
-      else { const salt=crypto.getRandomValues(new Uint8Array(16)); cryptoKey=await deriveKey(pass,salt); state=blankState(); await putVault({salt:Array.from(salt),payload:await encryptState(state)}); }
+      const vault = await getVault();
+
+if (vault) {
+  vaultSalt = new Uint8Array(vault.salt);
+  cryptoKey = await deriveKey(pass, vaultSalt);
+  state = await decryptState(vault.payload);
+} else {
+  vaultSalt = crypto.getRandomValues(new Uint8Array(16));
+  cryptoKey = await deriveKey(pass, vaultSalt);
+  state = blankState();
+
+  await putVault({
+    salt: Array.from(vaultSalt),
+    payload: await encryptState(state)
+  }); { const salt=crypto.getRandomValues(new Uint8Array(16)); cryptoKey=await deriveKey(pass,salt); state=blankState(); await putVault({salt:Array.from(salt),payload:await encryptState(state)}); }
       if(!state || state.schema!==1 || !Array.isArray(state.patients)) throw new Error("Структура хранилища не распознана.");
       $("#lock-screen").hidden=true; $("#main-screen").hidden=false; $("#passphrase").value=""; render();
     } catch(e){ err.textContent=e.message||"Не удалось разблокировать хранилище."; cryptoKey=null; }
